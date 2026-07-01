@@ -23,7 +23,7 @@ HAND_CONNECTIONS = [
 
 FINGER_TIPS = [4,8,12,16,20]
 
-MODEL_PATH = "C:/Users/SANGA/Downloads/hand_landmarker.task"
+MODEL_PATH = "models/hand_landmarker.task"
 
 base_options = python.BaseOptions(model_asset_path=MODEL_PATH)
 options = vision.HandLandmarkerOptions(

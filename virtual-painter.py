@@ -17,7 +17,7 @@ FINGER_TIPS = [4,8,12,16,20]
 eraserThickness=50
 brushThickness=30
 
-topBarPath="C:/Users/SANGA/Downloads/Screenshot 2026-06-30 at 08-18-24 Canva AI - Canva.png"
+topBarPath="models/Screenshot 2026-06-30 at 08-18-24 Canva AI - Canva.png"
 
 MODEL_PATH = "C:/Users/SANGA/Downloads/hand_landmarker.task"
 

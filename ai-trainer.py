@@ -11,8 +11,8 @@ POSE_CONNECTIONS = [
     (12, 14), (14, 16), (23, 25), (25, 27), (24, 26), (26, 28)
 ]
 
-MODEL_PATH = "C:/Users/SANGA/Downloads/pose_landmarker_heavy.task"
-VIDEO_PATH = "C:/Users/SANGA/Downloads/13990524_2160_3840_30fps.mp4"
+MODEL_PATH = "models/pose_landmarker_heavy.task"
+VIDEO_PATH = "models/13990524_2160_3840_30fps.mp4"
 
 # --- Helper Function ---
 def findAngle(frame, lmlist, p1, p2, p3, draw=True):

@@ -20,7 +20,7 @@ HAND_CONNECTIONS = [
     (13, 17), (0, 17), (17, 18), (18, 19), (19, 20) # Pinky & Palm base
 ]
 
-model_path = "C:/Users/SANGA/Downloads/hand_landmarker.task"
+model_path = "models/hand_landmarker.task"
 
 base_options=python.BaseOptions(model_asset_path=model_path)
 options=vision.HandLandmarkerOptions(
