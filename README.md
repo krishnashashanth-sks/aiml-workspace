@@ -1,104 +1,95 @@
-# AIML Workspace
+# AIML Workspace — Project Portfolio
 
-Welcome — this repository hosts my AIML (Artificial Intelligence & Machine Learning) projects, experiments, and demos implemented in Python. Use this README as your portfolio landing page: add project descriptions, links to notebooks, results, and quick instructions so visitors and recruiters can evaluate your work quickly.
+Welcome — this repository contains my small interactive AIML demos and utilities implemented in Python using MediaPipe and OpenCV. I am based in Hyderabad.
 
-## About Me
+About
+- Name: Sanga Krishna Shashanth (krishnashashanth-sks)
+- Location: Hyderabad, India
+- Contact: https://github.com/krishnashashanth-sks
 
-- Name: (Your Name)
-- Role: AIML Practitioner / Data Scientist / ML Engineer
-- Location: (City, Country)
-- Contact: (email / LinkedIn / GitHub)
+Repository summary
+This repo focuses on real-time hand / pose-based interaction demos using MediaPipe models and OpenCV. The `models/` folder contains the required .task model files (not all large model files are checked in). See each script for brief usage notes.
 
-## Highlights
+Quick links
+- models/ — MediaPipe task files used by the scripts
+- ai-trainer.py — pose-based rep counter (uses pose_landmarker)
+- ai-virtual-mouse.py — control mouse pointer with hand gestures
+- fingers-count.py — count raised fingers in webcam
+- hand-volume.py — control system volume by hand distance
+- virtual-painter.py — draw on-screen using hand gestures
 
-- Hands-on experience in supervised and unsupervised learning, deep learning, and model deployment.
-- Projects include classification, regression, NLP, computer vision, and recommendation systems.
-- Implementations use Python, scikit-learn, TensorFlow / PyTorch, pandas, and Jupyter notebooks.
+Requirements
+- Python 3.8+
+- Packages (example):
+  - opencv-python
+  - numpy
+  - mediapipe (or the MediaPipe Tasks Python package used in the scripts)
+  - pyautogui (for ai-virtual-mouse)
+  - pycaw and comtypes (for hand-volume on Windows)
 
-## Projects
+Install example (recommended in a virtualenv):
 
-Fill in the list below with your projects. For each project, include a short summary, key results, the main techniques used, and links to the code, notebook, and any demo.
+python -m venv .venv
+source .venv/bin/activate   # macOS / Linux
+.\.venv\Scripts\activate  # Windows PowerShell
+pip install -r requirements.txt
 
-| Project | Short description | Tech / Libraries | Link |
-|---|---|---:|---|
-| Project 1: <Project Name> | One-line description and goal (e.g., cat vs dog classifier) | Python, PyTorch, OpenCV | path/to/project-folder or link |
-| Project 2: <Project Name> | One-line description (e.g., sentiment analysis on tweets) | Python, TensorFlow, NLTK | path/to/project-folder |
-| Project 3: <Project Name> | One-line description | Python, scikit-learn, pandas | path/to/project-folder |
+(If you don't have a requirements.txt, install packages manually: pip install opencv-python numpy mediapipe pyautogui comtypes pycaw)
 
-Example project entry (copy this under Projects or keep as a separate PROJECTS.md):
+Notes about models
+- The scripts expect MediaPipe .task files in the models/ directory:
+  - models/hand_landmarker.task — used by ai-virtual-mouse.py, fingers-count.py, hand-volume.py, virtual-painter.py
+  - models/pose_landmarker_heavy.task — used by ai-trainer.py
+- If you don't have these files, download them from the official MediaPipe tasks/model release pages and place them in `models/`.
+- Some scripts reference a local absolute path for the model (virtual-painter.py). Edit the MODEL_PATH constant to point to `models/hand_landmarker.task` if you move the file into the repository.
 
-### Example — Image Classifier (Cat vs Dog)
-- Goal: Build a binary image classifier to distinguish cats from dogs.
-- Dataset: Kaggle Cats vs Dogs (link)
-- Approach: Transfer learning using ResNet50; data augmentation; fine-tuning last layers.
-- Results: 94% validation accuracy; confusion matrix and ROC curve included in notebook.
-- Files:
-  - `projects/image-classifier/README.md` — project README and how to run
-  - `projects/image-classifier/training.ipynb` — Jupyter notebook with experiments
-  - `projects/image-classifier/model.py` — model definition and utilities
+How to run each demo
+1) Realtime Rep Counter — ai-trainer.py
+   - Purpose: Detect pose landmarks and count repetitions (example bicep curl counter).
+   - Run: python ai-trainer.py
+   - Notes: Expects `models/pose_landmarker_heavy.task` and an example video in models/ (the script uses a video file by default). Change VIDEO_PATH in the script to use webcam (0) or your own video.
 
-## How to run my projects (general)
+2) AI Virtual Mouse — ai-virtual-mouse.py
+   - Purpose: Move the system mouse pointer and click using hand gestures.
+   - Run: python ai-virtual-mouse.py
+   - Notes: Requires `pyautogui`. The script maps index-finger coordinates to screen coordinates. Tweak frame size, smoothing and frameR for different setups.
 
-1. Clone the repo:
+3) Fingers Counter — fingers-count.py
+   - Purpose: Count the number of raised fingers from webcam feed.
+   - Run: python fingers-count.py
+   - Notes: Uses hand landmark logic; output appears on the OpenCV window.
 
-   git clone https://github.com/krishnashashanth-sks/aiml-workspace.git
-   cd aiml-workspace
+4) Hand Volume Control — hand-volume.py
+   - Purpose: Control system volume by distance between thumb and index finger.
+   - Run: python hand-volume.py
+   - Notes: Uses pycaw and comtypes — these are Windows specific. On Linux/mac you will need an alternative audio control library or adapt the code.
 
-2. Create a virtual environment (recommended):
+5) Virtual Painter — virtual-painter.py
+   - Purpose: Paint/draw on screen with hand gestures and use top-bar color selection.
+   - Run: python virtual-painter.py
+   - Notes: The script references a top bar image under `models/` (a screenshot). Update TOP_BAR path if needed. Also set MODEL_PATH to `models/hand_landmarker.task` for portability.
 
-   python -m venv .venv
-   source .venv/bin/activate  # macOS / Linux
-   .\.venv\Scripts\activate   # Windows PowerShell
+Folder structure (current)
+```
+/ (repo root)
+  README.md
+  ai-trainer.py
+  ai-virtual-mouse.py
+  fingers-count.py
+  hand-volume.py
+  virtual-painter.py
+  models/ (MediaPipe .task files and images)
+```
 
-3. Install dependencies (each project may have its own requirements file):
+Good practices & next improvements
+- Add a requirements.txt listing exact dependency versions.
+- Add per-project README files under a `projects/` directory with more detailed instructions and sample outputs (images, gifs).
+- Replace any absolute MODEL_PATH with a relative path to `models/` for portability.
+- Add a LICENSE (MIT) if you want others to reuse your code.
 
-   pip install -r requirements.txt
-
-4. Launch Jupyter notebooks or run scripts:
-
-   jupyter lab  # or jupyter notebook
-   # or run training script
-   python projects/image-classifier/train.py --config config.yaml
-
-## Folder structure (suggested)
-
-- projects/
-  - image-classifier/
-    - data/ (not checked in, use .gitignore)
-    - notebooks/
-    - src/
-    - models/
-    - README.md
-  - nlp-sentiment/
-  - recommender-system/
-- requirements.txt
-- README.md
-
-## Data and privacy
-
-- Large datasets are not stored in the repository. Instead include instructions and scripts to download or prepare datasets.
-- Add a `data/README.md` in each project explaining dataset source, license, and preprocessing steps.
-
-## Results, Figures, and Demos
-
-- For each project include a short `RESULTS.md` or add figures in the project folder showing metrics, confusion matrices, and sample predictions.
-- If you have live demos or hosted apps (Streamlit, Flask), include the demo URL and deployment notes.
-
-## Tips for making this portfolio stronger
-
-- Add notebooks with clean narrative and visualizations that tell the story: problem → data → modeling → evaluation → conclusions.
-- Include hyperparameter tables, training curves, and short README files inside each project explaining how to reproduce results.
-- Add a `summary.md` with one-line takeaways for each project so readers with limited time can scan your work quickly.
-
-## Contributing / License
-
-Feel free to open issues or pull requests for improvements. Add a license file (e.g., MIT) if you want to make your code reusable.
-
-## Contact
-
-- GitHub: https://github.com/krishnashashanth-sks
-- Email: (your-email@example.com)
+If you want, I can:
+- Fill in a requirements.txt for this repo based on the imports I found and add it to the repo, or
+- Update the scripts to use relative model paths and add small per-project README files with examples and screenshots.
 
 ---
-
-Replace the placeholders above (Your Name, contact info, project names) and add your project folders. If you share a list of your actual projects and preferred order, I can customize this README with real project entries and links to each folder/notebook.
+Updated for your files and location (Hyderabad). If you'd like me to commit the requirements.txt and per-project README files, tell me and I will make those changes now.
